@@ -6,15 +6,18 @@ $(function() {
     $('input.letter').miniCount({
       min           : 5,
       unit          : 'letter',
-      text          : 'letters ',
-      invalidText   : 'letters '
+      text          : '',
+      invalidText   : 'letters (5 minimum)',
+      hideOnValid   : true,
+      countdown     : true
     });
 
     $('input.word').miniCount({
       max           : 5,
       unit          : 'word',
       text          : 'words left',
-      invalidText   : 'words'
+      invalidText   : 'words',
+      countdown     : true
     });
 
     // Example 1

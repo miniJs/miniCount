@@ -13,6 +13,8 @@ jQuery ->
             unit                    :   'letter'   # counter unit: 'letter' | 'word' | 'sentence'
             min                     :   null       # minimum of letters/words/sentences occurrences
             max                     :   null       # maximum of letters/words/sentences occurrences
+            countdown               :   false      # countdown, only when min or max have been set not both of them
+            hideOnValid             :   false      # hide counter when it's valid
 
             className               :   'counter'  # counter wrapper class name
             validClassName          :   ''         # class name added to counter wrapper when invalid
@@ -33,7 +35,7 @@ jQuery ->
         # patterns
         patterns = {
             letter    :   /./
-            word      :   /.\s/ #/[\s\.]+/
+            word      :   /[.\s]+/
             sentence  :   /[\.\?\!]\s/
         }
 
@@ -53,58 +55,37 @@ jQuery ->
                 @callSettingFunction('onInvalid')
             state = _state
 
-
-        #count the number of words
-        count = =>
-            if @$element.val()
-                $.trim(@$element.val()).split(patterns[@getSetting('unit')]).length
-            else
-                0
-
         # format counter text
         formatText = (_text = '') =>
             if @getSetting('textPosition') is 'before' then _text + ' '  else ' ' + _text
 
-        #create the text
-        @updateCounter = =>
-            # init local variables
-            _dif = count()
-            _error = false
+        #count the number of words
+        count = =>
+            if @$element.val()?
+                @$element.val().split(patterns[@getSetting('unit')]).length - 1
+            else
+                0
 
-            # get the difference
-            if @getSetting('min')
-                if @getSetting('min') > _dif or ( @getSetting('max') and @getSetting('max') < _dif )
-                    _error = true
-                if not @getSetting('max')
-                    _dif = count() - @getSetting('min')
-            else if @getSetting('max')
-                _dif = @getSetting('max') - count()
+        # add class to element and counter wrapper
+        addClass = (_class) =>
+            @$element.addClass _class
+            @$counterWrapper.addClass _class
 
-            # handle the error classes
-            if @getSetting('invalidClass') or @getSetting('validClass')
-                if  _error or _dif < 0
-                    if @getState() isnt 'invalid'
-                        if @getSetting('invalidClass')
-                            @$element.addClass(@getSetting('invalidClass'))
-                            @$counterWrapper.addClass(@getSetting('invalidClass'))
-                        if @getSetting('validClass')
-                            @$element.removeClass(@getSetting('validClass'))
-                            @$counterWrapper.removeClass(@getSetting('validClass'))
-                        @$text.text(formatText(@getSetting('invalidText')))
-                    setState 'invalid'
-                else
-                    if @getState() isnt 'valid'
-                        if @getSetting('invalidClass')
-                            @$element.removeClass(@getSetting('invalidClass'))
-                            @$counterWrapper.removeClass(@getSetting('invalidClass'))
-                        if @getSetting('validClass')
-                            @$element.addClass(@getSetting('validClass'))
-                            @$counterWrapper.addClass(@getSetting('validClass'))
-                        @$text.text(formatText(@getSetting('text')))
-                    setState 'valid'
+        # remove class to element and counter wrapper
+        removeClass = (_class) =>
+            @$element.removeClass _class
+            @$counterWrapper.removeClass _class
 
-            # update the counter text
-            @$counter.text _dif
+        # show counter
+        show = () =>
+            @$counter.css 'visibility', 'visible'
+            @$text.css 'visibility', 'visible'
+
+        # hide counter
+        hide = () =>
+            @$counter.css 'visibility', 'hidden'
+            @$text.css 'visibility', 'hidden'
+
 
         ## public methods
         #get current state
@@ -119,13 +100,68 @@ jQuery ->
         @callSettingFunction = (functionName) ->
           @settings[functionName](element, @$counter[0], count())
 
+        # update counter content
+        @updateCounter = =>
+            # init local variables
+            _dif = count()
+            _error = false
+
+            # get the difference
+            if @getSetting('min')?
+                # check whether it's valid or not
+                if @getSetting('min') > _dif or ( @getSetting('max')? and @getSetting('max') < _dif )
+                    _error = true
+                # update _dif if countdown
+                if @getSetting('countdown') and not @getSetting('max')?
+                    _dif = count() - @getSetting('min')
+            else if @getSetting('max')?
+                # check whether it's valid or not
+                if @getSetting('max') < _dif
+                    _error = true
+                # update _dif if countdown
+                if @getSetting('countdown')
+                    _dif = @getSetting('max') - count()
+
+            # handle the error classes
+            if  _error or _dif < 0
+                # INVALID
+                if @getState() isnt 'invalid'
+                    # hide counter if necessary
+                    show() if @getSetting('hideOnValid')
+
+                    #update the counter classes
+                    addClass @getSetting('invalidClass') if @getSetting('invalidClass')?
+                    removeClass @getSetting('validClass') if @getSetting('validClass')?
+
+                    # update the counter text
+                    @$text.text(formatText(@getSetting('invalidText')))
+
+                    # update state
+                    setState 'invalid'
+            else
+                # VALID
+                if @getState() isnt 'valid'
+                    # hide counter if necessary
+                    hide() if @getSetting('hideOnValid')
+
+                    # update the counter text
+                    removeClass @getSetting('invalidClass') if @getSetting('invalidClass')?
+                    addClass @getSetting('validClass') if @getSetting('validClass')?
+
+                    # update the counter text
+                    @$text.text(formatText(@getSetting('text')))
+                setState 'valid'
+
+            # update the counter text
+            @$counter.text _dif
+
         # init function
         @init = ->
             # Initialise the settings
             @settings = $.extend {}, @defaults, options
 
             # check unit
-            if not @getSetting('unit').match('letter|word|sentence') then return @$element
+            if not @getSetting('unit').match('letter|word|sentence')? then return @$element
 
             # set text and invalid text
             text        = if @getSetting('text').length then @getSetting('text') else @getSetting('unit')
