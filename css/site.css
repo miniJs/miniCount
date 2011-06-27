@@ -1,5 +1,5 @@
 body {
-    font-family: helvetica,'Georgia',arial,sans-serif;
+    font-family: helvetica, 'Georgia', arial, sans-serif;
     background-color: #fafbf1;
     color: #3C3C3C;
 }
@@ -17,8 +17,47 @@ h1 strong {
     font-weight: bold;
 }
 
+#container {
+    width: 600px;
+    margin: 20px auto;
+}
+
+header {
+    padding: 10px 0;
+}
+
 #main {
     width: 980px;
-    margin:  0 auto;
+    margin: 0 auto;
 }
+
+textarea {
+    color: #6F6F6F;
+    width: 400px;
+    height: 200px;
+    background-color: #ffffee;;
+    border: 1px solid #dcdcdc;
+    font-size: 1.2em;
+    padding: 10px;
+
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -khtml-border-radius: 5px;
+}
+
+textarea:focus {
+    border: 1px solid #5F5F5F;
+}
+
+#wordcount {
+    margin: 5px 0 0;
+    color: #4F4F4F;
+    font-size: 1.4em;
+}
+
+#wordcount.error {
+    color: red;
+}
+
 
