@@ -1,16 +1,20 @@
 #
-# CoffeeScript jQuery Plugin Boilerplate
+# miniCount, the letter/word/sentence counter miniCount for jQuery
+# Instructions: Coming Soon
 # By: Matthieu Aussaguel, http://www.mynameismatthieu.com
-# Version: 1.0 alpha 1.0
+# Version: 0.1
 # Updated: June 27th, 2011
 #
 
 jQuery ->
-    $.pluginName = (element, options) ->
-        # default plugin settings
+    $.miniCount = (element, options) ->
+        # default miniCount settings
         @defaults = {
-            message     : 'hellow word' # setting description
-            callback    : ->            # setting description
+            maxWords: 30
+            msg: "words"
+            erMsg: "words"
+            erCl: "error"
+            counter: "counter"
         }
 
         ## private variables
@@ -18,7 +22,7 @@ jQuery ->
         state = ''
 
         ## public variables
-        # plugin settings
+        # miniCount settings
         @settings = {}
 
         # jQuery version of DOM element attached to the plugin
@@ -29,30 +33,52 @@ jQuery ->
         setState = (_state) ->
           state = _state
 
+        #count the number of words
+        count = =>
+            if @$element.val() != '' then $.trim(@$element.val()).split(/[\s\.\?]+/).length else 0
+
+        #create the message
+        cMsg = =>
+            dif = @getSetting('maxWords') - count()
+            if dif >= 0
+                if @$wordcount.hasClass(@getSetting('erCl')) then @$wordcount.removeClass @getSetting('erCl')
+            else
+                if not @$wordcount.hasClass(@getSetting('erCl')) then $wordcount.addClass(@getSetting('erCl'))
+            (@getSetting('maxWords') - count()) + ' ' + @getSetting('msg')
+
         ## public methods
         #get current state
         @getState = ->
           state
 
-        # get particular plugin setting
+        # get particular miniCount setting
         @getSetting = (settingKey) ->
           @settings[settingKey]
 
-        # call one of the plugin setting functions
+        # call one of the miniCount setting functions
         @callSettingFunction = (functionName) ->
           @settings[functionName]()
 
         # init function
         @init = ->
+            # Initialise the settings
             @settings = $.extend {}, @defaults, options
-            @settings.callback element, @settings.message
+            
+            # Counter element
+            @$wordcount = $('#' + @getSetting('counter'))
+
+            # Display counter
+            @$wordcount.text cMsg()
+
+            # bind event to the element
+            @$element.bind('click focus keyup blur change paste', => @$wordcount.text cMsg())
         # end init method
 
-        # initialise the plugin
+        # initialise the miniCount
         @init()
 
-    $.fn.pluginName = (options) ->
+    $.fn.miniCount = (options) ->
         return this.each ->
-            if undefined == ($ this).data('pluginName')
-                plugin = new $.pluginName this, options
-                ($ this).data 'pluginName', plugin
+            if undefined == ($ this).data('miniCount')
+                miniCount = new $.miniCount this, options
+                ($ this).data 'miniCount', miniCount
