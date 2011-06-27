@@ -17,28 +17,33 @@ h1 strong {
     font-weight: bold;
 }
 
+h2 {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
 #container {
-    width: 600px;
-    margin: 20px auto;
+    width: 960px;
+    font-weight: 100;
+    margin:  0 auto;
 }
 
-header {
-    padding: 10px 0;
+section, .row {
+    width: 320px;
+    position: relative;
+    float: left;
 }
 
-#main {
-    width: 980px;
-    margin: 0 auto;
-}
 
-textarea {
+input, textarea {
     color: #6F6F6F;
-    width: 400px;
-    height: 200px;
-    background-color: #ffffee;;
+    width: 278px;
     border: 1px solid #dcdcdc;
-    font-size: 1.2em;
+    font-size: 13px;
+    line-height: 16px;
     padding: 10px;
+    margin-bottom: 40px;
 
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -46,18 +51,56 @@ textarea {
     -khtml-border-radius: 5px;
 }
 
-textarea:focus {
+input:focus, textarea:focus {
     border: 1px solid #5F5F5F;
 }
 
-#wordcount {
-    margin: 5px 0 0;
-    color: #4F4F4F;
-    font-size: 1.4em;
+textarea {
+    height: 94px;
 }
 
-#wordcount.error {
-    color: red;
+input.error, textarea.error {
+    color: #6F6F6F;
+    border-color: #D95D5B;
+    background-color: #f8e6e6;
 }
 
+.error {
+    color: #D95D5B;
+}
 
+#example-3 textarea {
+    margin: 20px 0 0;
+}
+
+#example-3 .counter {
+    top: 45px;
+
+}
+
+.counter{
+    position: absolute;
+    right: 20px;
+    top: 167px;
+    font-size: 13px;
+}
+
+.row .counter  {
+    top: 45px;
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.clearfix { display: inline-block; }
+
+/* start commented backslash hack */
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */

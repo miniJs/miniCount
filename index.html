@@ -16,10 +16,29 @@
         </h1>
     </header>
 
-    <div id="main">
-        <textarea id="textarea-main">this is the word count plugin, check out the README file for more details</textarea>
-		<div id="wordcount"></div>
+    <div id="main" class="clearfix">
+        <section id="example-1">
+            <h2>Default</h2>
+            <textarea autofocus="autofocus"></textarea>
+        </section>
+        <section id="example-2">
+            <h2>Custom Minimum <strong>or</strong> Maximum</h2>
+
+
+            <div class="row">
+                <input class="letter" type="text" value="min of 5 letters."/>
+            </div>
+            <div class="row">
+                <input class="word" type="text" value="max 5 words and no more."/>
+            </div>
+        </section>
+        <section id="example-3">
+            <h2>Custom Minimum <strong>and</strong> Maximum</h2>
+            <textarea>Minimum of 2 sentences. Maximum of 5. Yes, you can do both!</textarea>
+        </section>
+
     </div>
+
 
 </div>
 <!-- end of #container -->
