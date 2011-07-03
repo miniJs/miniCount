@@ -35,7 +35,7 @@ jQuery ->
         # patterns
         patterns = {
             letter    :   /./
-            word      :   /[.\s]+/
+            word      :   " "
             sentence  :   /[\.\?\!]\s/
         }
 
@@ -61,8 +61,11 @@ jQuery ->
 
         #count the number of words
         count = =>
-            if @$element.val()?
-                @$element.val().split(patterns[@getSetting('unit')]).length - 1
+            if @$element.val().length > 0
+                switch @getSetting('unit')
+                    when 'word' then @$element.val().split(" ").length
+                    when 'sentence' then @$element.val().split(/[\.\?\!]\s/).length
+                    else @$element.val().length
             else
                 0
 
