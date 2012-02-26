@@ -1,7 +1,7 @@
 #
 # miniCount, the letter/word/sentence counter miniCount for jQuery
 # Instructions: Coming Soon
-# By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @matthieu_tweets
+# By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @mattaussaguel
 # Version: 1.0 Alpha 1.0
 # Updated: June 27th, 2011
 #
