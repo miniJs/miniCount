@@ -6,7 +6,7 @@ miniCount is very basic but powerful Letter/Word/Sentence jQuery plugin written 
 ### Website Url
 ---------------
 
-Coming soon.
+Coming very soon.
 
 ### Bug tracker
 ---------------
