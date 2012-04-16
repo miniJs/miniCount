@@ -1,9 +1,10 @@
 #
-# miniCount, the letter/word/sentence counter miniCount for jQuery
-# Instructions: Coming Soon
+# miniCount, a letter/word/sentence counter miniCount for jQuery
+# Instructions: http://minijs.com/plugins/5/count
 # By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @mattaussaguel
-# Version: 1.0 Alpha 1.0
-# Updated: June 27th, 2011
+# Version: 0.5 Beta
+# Updated: April 16, 2012
+# More info: http://minijs.com/
 #
 
 jQuery ->

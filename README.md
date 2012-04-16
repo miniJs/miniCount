@@ -3,10 +3,14 @@ miniCount jQuery plugin
 
 miniCount is very basic but powerful Letter/Word/Sentence jQuery plugin written in CoffeeScript and it just Works!
 
+### Version
+-----------
+v0.5 Beta
+
 ### Website Url
 ---------------
 
-Coming very soon.
+http://minijs.com/plugins/5/count
 
 ### Bug tracker
 ---------------
