@@ -58,7 +58,7 @@ jQuery ->
 
         # format counter text
         formatText = (_text = '') =>
-            if @getSetting('textPosition') is 'before' then _text + ' '  else ' ' +  _text
+            if @getSetting('textPosition') is 'before' then _text + ' '  else ' ' + _text
 
         #count the number of words
         count = =>
