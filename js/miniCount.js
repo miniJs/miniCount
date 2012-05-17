@@ -136,7 +136,7 @@
         return _this.$counter.text(_dif);
       };
       this.init = function() {
-        var invalidText, text;
+        var invalidText, selector, text;
         this.settings = $.extend({}, this.defaults, options);
         if (!(this.getSetting('unit').match('letter|word|sentence') != null)) {
           return this.$element;
@@ -145,18 +145,27 @@
         invalidText = this.getSetting('invalidText').length ? this.getSetting('invalidText') : this.getSetting('unit');
         this.$counter = $('<span />');
         this.$text = $('<span />');
-        this.$counterWrapper = $('<div />', {
-          'class': this.getSetting('className'),
-          'css': {
-            'display': 'none'
-          }
+        if ($('.' + this.getSetting('className')).length !== 0) {
+          selector = '.' + this.getSetting('className');
+          this.$counterWrapper = $(selector);
+        } else {
+          selector = '<div />';
+          this.$counterWrapper = $(selector);
+          this.$counterWrapper.attr({
+            'class': this.getSetting('className')
+          });
+        }
+        this.$counterWrapper.css({
+          'display': 'none'
         }).append(this.$text);
         if (this.getSetting('textPosition') === 'before') {
           this.$counterWrapper.append(this.$counter);
         } else {
           this.$counterWrapper.prepend(this.$counter);
         }
-        this.$element.after(this.$counterWrapper);
+        if ($('.' + this.getSetting('className')).length === 0) {
+          this.$element.after(this.$counterWrapper);
+        }
         this.updateCounter();
         this.$counterWrapper.show();
         return this.$element.bind('click focus keyup blur change paste', this.updateCounter);

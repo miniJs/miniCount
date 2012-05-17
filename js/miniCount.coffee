@@ -58,7 +58,7 @@ jQuery ->
 
         # format counter text
         formatText = (_text = '') =>
-            if @getSetting('textPosition') is 'before' then _text  ' '  else ' '  _text
+            if @getSetting('textPosition') is 'before' then _text +  ' '  else ' ' +  _text
 
         #count the number of words
         count = =>
@@ -174,8 +174,8 @@ jQuery ->
             # Counter element
             @$counter          = $ '<span />'
             @$text             = $ '<span />'
-            if $('.'  @getSetting('className')).length != 0
-                selector = '.'  @getSetting('className')
+            if $('.' + @getSetting('className')).length != 0
+                selector = '.'  + @getSetting('className')
                 @$counterWrapper = $(selector)
             else
                 selector = '<div />';
@@ -189,7 +189,7 @@ jQuery ->
             else
                 @$counterWrapper.prepend @$counter
 
-            if $('.'  @getSetting('className')).length == 0
+            if $('.' + @getSetting('className')).length == 0
                 @$element.after @$counterWrapper
 
             # update the counter
