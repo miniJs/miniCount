@@ -5,7 +5,7 @@ miniCount is very basic but powerful Letter/Word/Sentence jQuery plugin written 
 
 ### Version
 -----------
-v0.5 Beta
+v1.0 Stable
 
 ### Website Url
 ---------------
@@ -30,8 +30,9 @@ Developed by <a href="mailto:matthieu.aussaguel@gmail">Matthieu Aussaguel</a>, <
 ### To Do
 ---------
 
+* Add test coverage
+* Handle sentence segmenation exceptions such as "Mr."
 * Add paragraph support
-* Add test coverage using jasmine.js
 
 ### Licence
 -----------

@@ -23,7 +23,7 @@
       state = '';
       patterns = {
         letter: /./g,
-        word: /\s/g,
+        word: /\s|$/g,
         sentence: /(\S.+?[.!?])(?=\s+|$)/g
       };
       this.settings = {};

@@ -2,8 +2,8 @@
 # miniCount, a letter/word/sentence counter miniCount for jQuery
 # Instructions: http://minijs.com/plugins/5/count
 # By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @mattaussaguel
-# Version: 0.5 Beta
-# Updated: April 16, 2012
+# Version: 1.0 Stable
+# Updated: June 3, 2012
 # More info: http://minijs.com/
 #
 
@@ -36,7 +36,7 @@ jQuery ->
         # patterns
         patterns = {
             letter    :   /./g
-            word      :   /\s/g
+            word      :   /\s|$/g
             sentence  :   /(\S.+?[.!?])(?=\s+|$)/g
         }
 
