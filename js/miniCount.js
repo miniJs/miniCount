@@ -23,7 +23,7 @@
       state = '';
       patterns = {
         letter: /./,
-        word: " ",
+        word: /\s/,
         sentence: /[\.\?\!]\s/
       };
       this.settings = {};
@@ -48,14 +48,7 @@
       };
       count = function() {
         if (_this.$element.val().length > 0) {
-          switch (_this.getSetting('unit')) {
-            case 'word':
-              return _this.$element.val().split(" ").length;
-            case 'sentence':
-              return _this.$element.val().split(/[\.\?\!]\s/).length;
-            default:
-              return _this.$element.val().length;
-          }
+          return _this.$element.val().split(patterns[_this.getSetting('unit')]).length;
         } else {
           return 0;
         }
@@ -86,25 +79,25 @@
         return this.settings[functionName](element, this.$counter[0], count());
       };
       this.updateCounter = function() {
-        var _dif, _error;
-        _dif = count();
+        var _diff, _error;
+        _diff = count();
         _error = false;
         if (_this.getSetting('min') != null) {
-          if (_this.getSetting('min') > _dif || ((_this.getSetting('max') != null) && _this.getSetting('max') < _dif)) {
+          if (_this.getSetting('min') > _diff || ((_this.getSetting('max') != null) && _this.getSetting('max') < _diff)) {
             _error = true;
           }
           if (_this.getSetting('countdown') && !(_this.getSetting('max') != null)) {
-            _dif = count() - _this.getSetting('min');
+            _diff = count() - _this.getSetting('min');
           }
         } else if (_this.getSetting('max') != null) {
-          if (_this.getSetting('max') < _dif) {
+          if (_this.getSetting('max') < _diff) {
             _error = true;
           }
           if (_this.getSetting('countdown')) {
-            _dif = _this.getSetting('max') - count();
+            _diff = _this.getSetting('max') - count();
           }
         }
-        if (_error || _dif < 0) {
+        if (_error || _diff < 0) {
           if (_this.getState() !== 'invalid') {
             if (_this.getSetting('hideOnValid')) {
               show();
@@ -133,7 +126,7 @@
           }
           setState('valid');
         }
-        return _this.$counter.text(_dif);
+        return _this.$counter.text(_diff);
       };
       this.init = function() {
         var invalidText, text;

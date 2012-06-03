@@ -36,10 +36,10 @@ jQuery ->
         # patterns
         patterns = {
             letter    :   /./
-            word      :   " "
-            sentence  :   /[\.\?\!]\s/
+            word      :   /\s/
+            sentence  :   /[\.\?\!]\s/ 
         }
-
+        
         ## public variables
         # miniCount settings
         @settings = {}
@@ -63,10 +63,7 @@ jQuery ->
         #count the number of words
         count = =>
             if @$element.val().length > 0
-                switch @getSetting('unit')
-                    when 'word' then @$element.val().split(" ").length
-                    when 'sentence' then @$element.val().split(/[\.\?\!]\s/).length
-                    else @$element.val().length
+                @$element.val().split(patterns[@getSetting('unit')]).length
             else
                 0
 
@@ -107,27 +104,27 @@ jQuery ->
         # update counter content
         @updateCounter = =>
             # init local variables
-            _dif = count()
+            _diff = count()
             _error = false
 
             # get the difference
             if @getSetting('min')?
                 # check whether it's valid or not
-                if @getSetting('min') > _dif or ( @getSetting('max')? and @getSetting('max') < _dif )
+                if @getSetting('min') > _diff or ( @getSetting('max')? and @getSetting('max') < _diff )
                     _error = true
-                # update _dif if countdown
+                # update _diff if countdown
                 if @getSetting('countdown') and not @getSetting('max')?
-                    _dif = count() - @getSetting('min')
+                    _diff = count() - @getSetting('min')
             else if @getSetting('max')?
                 # check whether it's valid or not
-                if @getSetting('max') < _dif
+                if @getSetting('max') < _diff
                     _error = true
-                # update _dif if countdown
+                # update _diff if countdown
                 if @getSetting('countdown')
-                    _dif = @getSetting('max') - count()
+                    _diff = @getSetting('max') - count()
 
             # handle the error classes
-            if  _error or _dif < 0
+            if  _error or _diff < 0
                 # INVALID
                 if @getState() isnt 'invalid'
                     # hide counter if necessary
@@ -157,7 +154,7 @@ jQuery ->
                 setState 'valid'
 
             # update the counter text
-            @$counter.text _dif
+            @$counter.text _diff
 
         # init function
         @init = ->
