@@ -22,9 +22,9 @@
       };
       state = '';
       patterns = {
-        letter: /./,
-        word: /\s/,
-        sentence: /[\.\?\!]\s/
+        letter: /./g,
+        word: /\s/g,
+        sentence: /(\S.+?[.!?])(?=\s+|$)/g
       };
       this.settings = {};
       this.$element = $(element);
@@ -48,7 +48,7 @@
       };
       count = function() {
         if (_this.$element.val().length > 0) {
-          return _this.$element.val().split(patterns[_this.getSetting('unit')]).length;
+          return _this.$element.val().match(patterns[_this.getSetting('unit')]).length;
         } else {
           return 0;
         }

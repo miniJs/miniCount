@@ -35,11 +35,11 @@ jQuery ->
 
         # patterns
         patterns = {
-            letter    :   /./
-            word      :   /\s/
-            sentence  :   /[\.\?\!]\s/ 
+            letter    :   /./g
+            word      :   /\s/g
+            sentence  :   /(\S.+?[.!?])(?=\s+|$)/g
         }
-        
+
         ## public variables
         # miniCount settings
         @settings = {}
@@ -63,7 +63,7 @@ jQuery ->
         #count the number of words
         count = =>
             if @$element.val().length > 0
-                @$element.val().split(patterns[@getSetting('unit')]).length
+                @$element.val().match(patterns[@getSetting('unit')]).length
             else
                 0
 
