@@ -1,10 +1,10 @@
 # miniCount jQuery plugin
 
-miniCount is very basic but powerful Letter/Word/Sentence jQuery plugin written in CoffeeScript and it just Works!
+miniCount is very basic but powerful Character / Word / Sentence jQuery plugin written in CoffeeScript and it just Works!
 
 ## Version
 
-v1.0 Stable
+v1.1 Stable
 
 ## Website Url
 

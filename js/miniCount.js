@@ -6,7 +6,7 @@
       var addClass, count, formatText, hide, patterns, removeClass, setState, show, state,
         _this = this;
       this.defaults = {
-        unit: 'letter',
+        unit: 'character',
         min: null,
         max: null,
         countdown: false,
@@ -22,7 +22,7 @@
       };
       state = '';
       patterns = {
-        letter: /./g,
+        character: /./g,
         word: /\s|$/g,
         sentence: /(\S.+?[.!?])(?=\s+|$)/g
       };
@@ -131,7 +131,7 @@
       this.init = function() {
         var invalidText, text;
         this.settings = $.extend({}, this.defaults, options);
-        if (!(this.getSetting('unit').match('letter|word|sentence') != null)) {
+        if (!(this.getSetting('unit').match('character|word|sentence') != null)) {
           return this.$element;
         }
         text = this.getSetting('text').length ? this.getSetting('text') : this.getSetting('unit');

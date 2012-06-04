@@ -1,9 +1,9 @@
 #
-# miniCount, a letter/word/sentence counter miniCount for jQuery
+# miniCount, a character/word/sentence counter miniCount for jQuery
 # Instructions: http://minijs.com/plugins/5/count
 # By: Matthieu Aussaguel, http://www.mynameismatthieu.com, @mattaussaguel
-# Version: 1.0 Stable
-# Updated: June 3, 2012
+# Version: 1.1 Stable
+# Updated: June 4, 2012
 # More info: http://minijs.com/
 #
 
@@ -11,22 +11,22 @@ jQuery ->
     $.miniCount = (element, options) ->
         # default miniCount settings
         @defaults = {
-            unit                    :   'letter'   # counter unit: 'letter' | 'word' | 'sentence'
-            min                     :   null       # minimum of letters/words/sentences occurrences
-            max                     :   null       # maximum of letters/words/sentences occurrences
-            countdown               :   false      # countdown, only when min or max have been set not both of them
-            hideOnValid             :   false      # hide counter when it's valid
-
-            className               :   'counter'  # counter wrapper class name
-            validClassName          :   ''         # class name added to counter wrapper when invalid
-            invalidClass            :   'error'    # class name to add to counter wrapper when invalid
-
-            text                    :   ''         # valid text to be displayed
-            textPosition            :   'after'    # valid text position - 'before' | 'after' the counter
-            invalidText             :   ''         # invalid text to be displayed
-
-            onValid                 :   ->         # function(element, counter, count) callback function called when valid state
-            onInvalid               :   ->         # function(element, counter, count) callback function called when invalid state
+            unit                    :   'character' # counter unit: 'character' | 'word' | 'sentence'
+            min                     :   null        # minimum of characters/words/sentences occurrences
+            max                     :   null        # maximum of characters/words/sentences occurrences
+            countdown               :   false       # countdown, only when min or max have been set not both of them
+            hideOnValid             :   false       # hide counter when it's valid
+ 
+            className               :   'counter'   # counter wrapper class name
+            validClassName          :   ''          # class name added to counter wrapper when invalid
+            invalidClass            :   'error'     # class name to add to counter wrapper when invalid
+ 
+            text                    :   ''          # valid text to be displayed
+            textPosition            :   'after'     # valid text position - 'before' | 'after' the counter
+            invalidText             :   ''          # invalid text to be displayed
+ 
+            onValid                 :   ->          # function(element, counter, count) callback function called when valid state
+            onInvalid               :   ->          # function(element, counter, count) callback function called when invalid state
         }
 
         ## private variables
@@ -35,7 +35,7 @@ jQuery ->
 
         # patterns
         patterns = {
-            letter    :   /./g
+            character :   /./g
             word      :   /\s|$/g
             sentence  :   /(\S.+?[.!?])(?=\s+|$)/g
         }
@@ -162,7 +162,7 @@ jQuery ->
             @settings = $.extend {}, @defaults, options
 
             # check unit
-            if not @getSetting('unit').match('letter|word|sentence')? then return @$element
+            if not @getSetting('unit').match('character|word|sentence')? then return @$element
 
             # set text and invalid text
             text        = if @getSetting('text').length then @getSetting('text') else @getSetting('unit')

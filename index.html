@@ -29,7 +29,7 @@
 
 
       <div class="row">
-          <input class="letter" type="text" value="min of 5 letters."/>
+          <input class="character" type="text" value="min of 5 characters."/>
       </div>
       <div class="row">
           <input class="word" type="text" value="max 5 words and no more."/>
@@ -51,11 +51,11 @@
     $('#example-1 textarea').miniCount();
 
     //    Example 2
-    $('input.letter').miniCount({
+    $('input.character').miniCount({
       min           : 5,
-      unit          : 'letter',
+      unit          : 'character',
       text          : '',
-      invalidText   : 'letters (5 minimum)',
+      invalidText   : 'characters (5 minimum)',
       hideOnValid   : true,
       countdown     : true
     });
