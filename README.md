@@ -1,41 +1,35 @@
-miniCount jQuery plugin
-=======================
+# miniCount jQuery plugin
 
 miniCount is very basic but powerful Letter/Word/Sentence jQuery plugin written in CoffeeScript and it just Works!
 
-### Version
------------
+## Version
+
 v1.0 Stable
 
-### Website Url
----------------
+## Website Url
 
 http://minijs.com/plugins/5/count
 
-### Bug tracker
----------------
+## Bug tracker
 
 If you find a bug, please raise it the issue here on Github! 
 
 https://github.com/miniJs/miniCount/issues
 
-### Developer
--------------
+## Developer
 
 Developed by <a href="mailto:matthieu.aussaguel@gmail">Matthieu Aussaguel</a>, <a href="http://mynameismatthieu.com">mynameismatthieu.com</a>
 
 + http://twitter.com/mattaussaguel
 + http://github.com/matthieua
 
-### To Do
----------
+## To Do
 
 * Add test coverage
 * Handle sentence segmenation exceptions such as "Mr."
 * Add paragraph support
 
-### Licence
------------
+## Licence
 
 Copyright &copy; 2012 Matthieu Aussaguel
 
