@@ -188,6 +188,8 @@ jQuery ->
         # initialise the miniCount
         @init()
 
+        this
+
     $.fn.miniCount = (options) ->
         return this.each ->
             if undefined == ($ this).data('miniCount')
