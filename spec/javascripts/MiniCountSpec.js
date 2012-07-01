@@ -192,9 +192,48 @@
         });
       });
     });
-    describe('character count', function() {});
-    describe('word count', function() {});
-    describe('sentence count', function() {});
+    describe('character count', function() {
+      beforeEach(function() {
+        return this.plugin = new $.miniCount(this.$element, {
+          unit: 'character'
+        });
+      });
+      it('should return 0 when empty', function() {
+        return expect(this.plugin.count()).toBe(0);
+      });
+      return it('should count every character', function() {
+        this.$element.val('!@#$%^&*()-_=+[]{}\'";:/.,?><qwertyuiopasdfghjklzxcvbnm\\ ');
+        return expect(this.plugin.count()).toBe(56);
+      });
+    });
+    describe('word count', function() {
+      beforeEach(function() {
+        return this.plugin = new $.miniCount(this.$element, {
+          unit: 'word'
+        });
+      });
+      it('should return 0 when empty', function() {
+        return expect(this.plugin.count()).toBe(0);
+      });
+      return it('should return the number of words', function() {
+        this.$element.val('one two three. Four 5 6 .');
+        return expect(this.plugin.count()).toBe(7);
+      });
+    });
+    describe('sentence count', function() {
+      beforeEach(function() {
+        return this.plugin = new $.miniCount(this.$element, {
+          unit: 'sentence'
+        });
+      });
+      it('should return the number of sentences of words', function() {
+        this.$element.val(" This is a question, isn't it?   This is a normal sentence. This is an affirmation; yeah!");
+        return expect(this.plugin.count()).toBe(3);
+      });
+      return it('should return 0 when empty', function() {
+        return expect(this.plugin.count()).toBe(0);
+      });
+    });
     describe('hideOnValid', function() {
       describe('when false, default value', function() {
         beforeEach(function() {
@@ -230,7 +269,84 @@
         });
       });
     });
-    describe('countdown', function() {});
+    describe('countdown', function() {
+      describe('when false', function() {
+        it("should not countdown by default", function() {
+          var plugin;
+          this.$element.val('abcd');
+          plugin = new $.miniCount(this.$element, {
+            countdown: false
+          });
+          return expect(plugin.$counter.text()).toBe('4');
+        });
+        it("should not countdown when min is specified", function() {
+          var plugin;
+          this.$element.val('abcd');
+          plugin = new $.miniCount(this.$element, {
+            countdown: false,
+            min: 5
+          });
+          return expect(plugin.$counter.text()).toBe('4');
+        });
+        it("should not countdown when max is specified", function() {
+          var plugin;
+          this.$element.val('abcdefgh');
+          plugin = new $.miniCount(this.$element, {
+            countdown: false,
+            max: 5
+          });
+          return expect(plugin.$counter.text()).toBe('8');
+        });
+        return it("should not countdown when min and max are both specified", function() {
+          var plugin;
+          this.$element.val('abcdefghiklm');
+          plugin = new $.miniCount(this.$element, {
+            countdown: false,
+            min: 5,
+            max: 10
+          });
+          return expect(plugin.$counter.text()).toBe('12');
+        });
+      });
+      return describe('when true', function() {
+        it("should not countdown by default when neither min and max have been specified", function() {
+          var plugin;
+          this.$element.val('abcd');
+          plugin = new $.miniCount(this.$element, {
+            countdown: true
+          });
+          return expect(plugin.$counter.text()).toBe('4');
+        });
+        it("should countdown when min is specified", function() {
+          var plugin;
+          this.$element.val('abcd');
+          plugin = new $.miniCount(this.$element, {
+            countdown: true,
+            min: 5
+          });
+          return expect(plugin.$counter.text()).toBe('-1');
+        });
+        it("should countdown when max is specified", function() {
+          var plugin;
+          this.$element.val('abcdefghi');
+          plugin = new $.miniCount(this.$element, {
+            countdown: true,
+            max: 5
+          });
+          return expect(plugin.$counter.text()).toBe('-4');
+        });
+        return it("should not countdown when min and max are both specified", function() {
+          var plugin;
+          this.$element.val('abcdefghiklm');
+          plugin = new $.miniCount(this.$element, {
+            countdown: true,
+            min: 5,
+            max: 10
+          });
+          return expect(plugin.$counter.text()).toBe('12');
+        });
+      });
+    });
     return describe('callbacks', function() {
       beforeEach(function() {
         return this.foo = jasmine.createSpy('foo');

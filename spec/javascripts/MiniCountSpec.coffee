@@ -155,11 +155,37 @@ describe 'miniCount', ->
 
 
   describe 'character count', ->
+    beforeEach ->
+      @plugin = new $.miniCount( @$element, { unit: 'character' } )
 
+    it 'should return 0 when empty', ->
+      expect(@plugin.count()).toBe 0
+
+    it 'should count every character', ->
+      @$element.val('!@#$%^&*()-_=+[]{}\'";:/.,?><qwertyuiopasdfghjklzxcvbnm\\ ')
+      expect(@plugin.count()).toBe 56
 
   describe 'word count', ->
+    beforeEach ->
+      @plugin = new $.miniCount( @$element, { unit: 'word' } )
+
+    it 'should return 0 when empty', ->
+      expect(@plugin.count()).toBe 0
+
+    it 'should return the number of words', ->
+      @$element.val('one two three. Four 5 6 .')
+      expect(@plugin.count()).toBe 7
 
   describe 'sentence count', ->
+    beforeEach ->
+      @plugin = new $.miniCount( @$element, { unit: 'sentence' } )
+
+    it 'should return the number of sentences of words', ->
+      @$element.val(" This is a question, isn't it?   This is a normal sentence. This is an affirmation; yeah!")
+      expect(@plugin.count()).toBe 3
+
+    it 'should return 0 when empty', ->
+      expect(@plugin.count()).toBe 0
 
   describe 'hideOnValid', ->
     describe 'when false, default value', ->
@@ -192,6 +218,48 @@ describe 'miniCount', ->
 
 
   describe 'countdown', ->
+    describe 'when false', ->
+      it "should not countdown by default", ->
+        @$element.val('abcd')
+        plugin = new $.miniCount( @$element, { countdown: false } )
+        expect(plugin.$counter.text()).toBe '4'
+
+      it "should not countdown when min is specified", ->
+        @$element.val('abcd')
+        plugin = new $.miniCount( @$element, { countdown: false, min: 5 } )
+        expect(plugin.$counter.text()).toBe '4'
+
+      it "should not countdown when max is specified", ->
+        @$element.val('abcdefgh')
+        plugin = new $.miniCount( @$element, { countdown: false, max: 5 } )
+        expect(plugin.$counter.text()).toBe '8'
+
+      it "should not countdown when min and max are both specified", ->
+        @$element.val('abcdefghiklm')
+        plugin = new $.miniCount( @$element, { countdown: false, min: 5, max: 10 } )
+        expect(plugin.$counter.text()).toBe '12'
+
+
+    describe 'when true', ->
+      it "should not countdown by default when neither min and max have been specified", ->
+        @$element.val('abcd')
+        plugin = new $.miniCount( @$element, { countdown: true } )
+        expect(plugin.$counter.text()).toBe '4'
+
+      it "should countdown when min is specified", ->
+        @$element.val('abcd')
+        plugin = new $.miniCount( @$element, { countdown: true, min: 5 } )
+        expect(plugin.$counter.text()).toBe '-1'
+
+      it "should countdown when max is specified", ->
+        @$element.val('abcdefghi')
+        plugin = new $.miniCount( @$element, { countdown: true, max: 5 } )
+        expect(plugin.$counter.text()).toBe '-4'
+
+      it "should not countdown when min and max are both specified", ->
+        @$element.val('abcdefghiklm')
+        plugin = new $.miniCount( @$element, { countdown: true, min: 5, max: 10 } )
+        expect(plugin.$counter.text()).toBe '12'
 
   describe 'callbacks', ->
     beforeEach ->

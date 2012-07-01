@@ -2,7 +2,7 @@
 
   jQuery(function() {
     $.miniCount = function(element, options) {
-      var addClass, count, formatText, hide, patterns, removeClass, setState, show, state,
+      var addClass, formatText, hide, patterns, removeClass, setState, show, state,
         _this = this;
       this.defaults = {
         unit: 'character',
@@ -45,13 +45,6 @@
           return ' ' + _text;
         }
       };
-      count = function() {
-        if (_this.$element.val().length > 0) {
-          return _this.$element.val().match(patterns[_this.getSetting('unit')]).length;
-        } else {
-          return 0;
-        }
-      };
       addClass = function(_class) {
         _this.$element.addClass(_class);
         return _this.$counterWrapper.addClass(_class);
@@ -75,25 +68,32 @@
         return this.settings[settingKey];
       };
       this.callSettingFunction = function(functionName) {
-        return this.settings[functionName](element, this.$counter[0], count());
+        return this.settings[functionName](element, this.$counter[0], this.count());
+      };
+      this.count = function() {
+        if (_this.$element.val().length > 0) {
+          return _this.$element.val().match(patterns[_this.getSetting('unit')]).length;
+        } else {
+          return 0;
+        }
       };
       this.updateCounter = function() {
         var _diff, _error;
-        _diff = count();
+        _diff = _this.count();
         _error = false;
         if (_this.getSetting('min') != null) {
           if (_this.getSetting('min') > _diff || ((_this.getSetting('max') != null) && _this.getSetting('max') < _diff)) {
             _error = true;
           }
           if (_this.getSetting('countdown') && !(_this.getSetting('max') != null)) {
-            _diff = count() - _this.getSetting('min');
+            _diff = _this.count() - _this.getSetting('min');
           }
         } else if (_this.getSetting('max') != null) {
           if (_this.getSetting('max') < _diff) {
             _error = true;
           }
           if (_this.getSetting('countdown')) {
-            _diff = _this.getSetting('max') - count();
+            _diff = _this.getSetting('max') - _this.count();
           }
         }
         if (_error || _diff < 0) {

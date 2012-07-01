@@ -60,13 +60,6 @@ jQuery ->
         formatText = (_text = '') =>
             if @getSetting('textPosition') is 'before' then _text + ' '  else ' ' + _text
 
-        #count the number of words
-        count = =>
-            if @$element.val().length > 0
-                @$element.val().match(patterns[@getSetting('unit')]).length
-            else
-                0
-
         # add class to element and counter wrapper
         addClass = (_class) =>
             @$element.addClass _class
@@ -99,12 +92,19 @@ jQuery ->
 
         # call one of the miniCount setting functions
         @callSettingFunction = (functionName) ->
-          @settings[functionName](element, @$counter[0], count())
+          @settings[functionName](element, @$counter[0], @count())
+
+        #count the number of words
+        @count = =>
+            if @$element.val().length > 0
+                @$element.val().match(patterns[@getSetting('unit')]).length
+            else
+                0
 
         # update counter content
         @updateCounter = =>
             # init local variables
-            _diff = count()
+            _diff = @count()
             _error = false
 
             # get the difference
@@ -114,14 +114,14 @@ jQuery ->
                     _error = true
                 # update _diff if countdown
                 if @getSetting('countdown') and not @getSetting('max')?
-                    _diff = count() - @getSetting('min')
+                    _diff = @count() - @getSetting('min')
             else if @getSetting('max')?
                 # check whether it's valid or not
                 if @getSetting('max') < _diff
                     _error = true
                 # update _diff if countdown
                 if @getSetting('countdown')
-                    _diff = @getSetting('max') - count()
+                    _diff = @getSetting('max') - @count()
 
             # handle the error classes
             if  _error or _diff < 0
