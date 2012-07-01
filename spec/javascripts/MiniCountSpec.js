@@ -120,10 +120,45 @@
         });
       });
     });
+    describe('validation', function() {});
     describe('character count', function() {});
     describe('word count', function() {});
     describe('sentence count', function() {});
-    describe('hideOnValid', function() {});
+    describe('hideOnValid', function() {
+      describe('when false, default value', function() {
+        beforeEach(function() {
+          return this.plugin = new $.miniCount(this.$element, {
+            max: 5
+          });
+        });
+        it("should be visible when valid", function() {
+          expect(this.plugin.$counter.css('visibility')).toBe('visible');
+          return expect(this.plugin.$text.css('visibility')).toBe('visible');
+        });
+        return it("should be visible when invalid", function() {
+          this.$element.val('this is now invalid').trigger('change');
+          expect(this.plugin.$counter.css('visibility')).toBe('visible');
+          return expect(this.plugin.$text.css('visibility')).toBe('visible');
+        });
+      });
+      return describe('when true', function() {
+        beforeEach(function() {
+          return this.plugin = new $.miniCount(this.$element, {
+            max: 5,
+            hideOnValid: true
+          });
+        });
+        it("should be hidden when valid", function() {
+          expect(this.plugin.$counter.css('visibility')).toBe('hidden');
+          return expect(this.plugin.$text.css('visibility')).toBe('hidden');
+        });
+        return it("should be visible when invalid", function() {
+          this.$element.val('this is now invalid').trigger('change');
+          expect(this.plugin.$counter.css('visibility')).toBe('visible');
+          return expect(this.plugin.$text.css('visibility')).toBe('visible');
+        });
+      });
+    });
     describe('countdown', function() {});
     return describe('callbacks', function() {
       beforeEach(function() {

@@ -85,6 +85,9 @@ describe 'miniCount', ->
         @$element.val('this is now valid').trigger('change')
         expect(plugin.$counterWrapper.hasClass('custom-invalid-class')).toBeFalsy()
 
+  describe 'validation', ->
+
+
   describe 'character count', ->
 
 
@@ -93,6 +96,35 @@ describe 'miniCount', ->
   describe 'sentence count', ->
 
   describe 'hideOnValid', ->
+    
+    describe 'when false, default value', ->
+      beforeEach ->
+        @plugin = new $.miniCount( @$element, { max: 5 } )
+
+      it "should be visible when valid", ->
+        expect(@plugin.$counter.css('visibility')).toBe('visible')
+        expect(@plugin.$text.css('visibility')).toBe('visible')
+
+      it "should be visible when invalid", ->
+        @$element.val('this is now invalid').trigger('change')
+
+        expect(@plugin.$counter.css('visibility')).toBe('visible')
+        expect(@plugin.$text.css('visibility')).toBe('visible')
+
+    describe 'when true', ->
+      beforeEach ->
+        @plugin = new $.miniCount( @$element, { max: 5, hideOnValid: true } )
+
+      it "should be hidden when valid", ->
+        expect(@plugin.$counter.css('visibility')).toBe('hidden')
+        expect(@plugin.$text.css('visibility')).toBe('hidden')
+
+      it "should be visible when invalid", ->
+        @$element.val('this is now invalid').trigger('change')
+
+        expect(@plugin.$counter.css('visibility')).toBe('visible')
+        expect(@plugin.$text.css('visibility')).toBe('visible')
+
 
   describe 'countdown', ->
 
