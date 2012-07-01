@@ -41,7 +41,6 @@ Developed by <a href="mailto:matthieu.aussaguel@gmail.com">Matthieu Aussaguel</a
 
 ## To Do
 
-* Add test coverage
 * Handle sentence segmenation exceptions such as "Mr."
 * Add paragraph support
 
