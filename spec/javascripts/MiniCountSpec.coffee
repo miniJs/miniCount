@@ -86,6 +86,72 @@ describe 'miniCount', ->
         expect(plugin.$counterWrapper.hasClass('custom-invalid-class')).toBeFalsy()
 
   describe 'validation', ->
+    describe 'without min and max', ->
+      it 'should always be valid, default values', ->
+        plugin = new $.miniCount(@$element)
+        expect(plugin.getState()).toBe('valid')
+
+        @$element.val('this is still valid').trigger('change')
+        expect(plugin.getState()).toBe('valid')
+
+    describe 'with min only', ->
+      beforeEach ->
+        @plugin = new $.miniCount( @$element, { min: 10 } )
+
+      it 'should be invalid below 10 characters', ->
+        expect(@plugin.getState()).toBe('invalid')
+
+        @$element.val('abcdefghi').trigger('change')
+        expect(@plugin.getState()).toBe('invalid')
+
+      it 'should be valid above 9 characters', ->
+        @$element.val('abcdefghij').trigger('change')
+        expect(@plugin.getState()).toBe('valid')
+
+    describe 'with max only', ->
+      beforeEach ->
+        @plugin = new $.miniCount( @$element, { max: 10 } )
+
+      it 'should be invalid above 10 characters', ->
+        @$element.val('abcdefghijk').trigger('change')
+        expect(@plugin.getState()).toBe('invalid')
+
+        @$element.val('this is longer than 10 characters obviously').trigger('change')
+        expect(@plugin.getState()).toBe('invalid')
+
+      it 'should be valid below 9 characters', ->
+        expect(@plugin.getState()).toBe('valid')
+
+        @$element.val('abcdefghi').trigger('change')
+        expect(@plugin.getState()).toBe('valid')
+
+
+    describe 'with min and max', ->
+      beforeEach ->
+        @plugin = new $.miniCount( @$element, { min: 5, max: 10 } )
+
+      it 'should be invalid below 5 characters', ->
+        expect(@plugin.getState()).toBe('invalid')
+
+        @$element.val('abcd').trigger('change')
+        expect(@plugin.getState()).toBe('invalid')
+
+      it 'should be invalid above 10 characters', ->
+        @$element.val('abcdefghikl').trigger('change')
+        expect(@plugin.getState()).toBe('invalid')
+
+        @$element.val('this is longer than 10 characters obviously').trigger('change')
+        expect(@plugin.getState()).toBe('invalid')
+
+      it 'should be balid between 5 and 10 characters inclusive', ->
+        @$element.val('abcde').trigger('change')
+        expect(@plugin.getState()).toBe('valid')
+
+        @$element.val('abcdefg').trigger('change')
+        expect(@plugin.getState()).toBe('valid')
+
+        @$element.val('abcdefghij').trigger('change')
+        expect(@plugin.getState()).toBe('valid')
 
 
   describe 'character count', ->
@@ -96,7 +162,6 @@ describe 'miniCount', ->
   describe 'sentence count', ->
 
   describe 'hideOnValid', ->
-    
     describe 'when false, default value', ->
       beforeEach ->
         @plugin = new $.miniCount( @$element, { max: 5 } )

@@ -120,7 +120,78 @@
         });
       });
     });
-    describe('validation', function() {});
+    describe('validation', function() {
+      describe('without min and max', function() {
+        return it('should always be valid, default values', function() {
+          var plugin;
+          plugin = new $.miniCount(this.$element);
+          expect(plugin.getState()).toBe('valid');
+          this.$element.val('this is still valid').trigger('change');
+          return expect(plugin.getState()).toBe('valid');
+        });
+      });
+      describe('with min only', function() {
+        beforeEach(function() {
+          return this.plugin = new $.miniCount(this.$element, {
+            min: 10
+          });
+        });
+        it('should be invalid below 10 characters', function() {
+          expect(this.plugin.getState()).toBe('invalid');
+          this.$element.val('abcdefghi').trigger('change');
+          return expect(this.plugin.getState()).toBe('invalid');
+        });
+        return it('should be valid above 9 characters', function() {
+          this.$element.val('abcdefghij').trigger('change');
+          return expect(this.plugin.getState()).toBe('valid');
+        });
+      });
+      describe('with max only', function() {
+        beforeEach(function() {
+          return this.plugin = new $.miniCount(this.$element, {
+            max: 10
+          });
+        });
+        it('should be invalid above 10 characters', function() {
+          this.$element.val('abcdefghijk').trigger('change');
+          expect(this.plugin.getState()).toBe('invalid');
+          this.$element.val('this is longer than 10 characters obviously').trigger('change');
+          return expect(this.plugin.getState()).toBe('invalid');
+        });
+        return it('should be valid below 9 characters', function() {
+          expect(this.plugin.getState()).toBe('valid');
+          this.$element.val('abcdefghi').trigger('change');
+          return expect(this.plugin.getState()).toBe('valid');
+        });
+      });
+      return describe('with min and max', function() {
+        beforeEach(function() {
+          return this.plugin = new $.miniCount(this.$element, {
+            min: 5,
+            max: 10
+          });
+        });
+        it('should be invalid below 5 characters', function() {
+          expect(this.plugin.getState()).toBe('invalid');
+          this.$element.val('abcd').trigger('change');
+          return expect(this.plugin.getState()).toBe('invalid');
+        });
+        it('should be invalid above 10 characters', function() {
+          this.$element.val('abcdefghikl').trigger('change');
+          expect(this.plugin.getState()).toBe('invalid');
+          this.$element.val('this is longer than 10 characters obviously').trigger('change');
+          return expect(this.plugin.getState()).toBe('invalid');
+        });
+        return it('should be balid between 5 and 10 characters inclusive', function() {
+          this.$element.val('abcde').trigger('change');
+          expect(this.plugin.getState()).toBe('valid');
+          this.$element.val('abcdefg').trigger('change');
+          expect(this.plugin.getState()).toBe('valid');
+          this.$element.val('abcdefghij').trigger('change');
+          return expect(this.plugin.getState()).toBe('valid');
+        });
+      });
+    });
     describe('character count', function() {});
     describe('word count', function() {});
     describe('sentence count', function() {});
