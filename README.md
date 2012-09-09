@@ -20,13 +20,6 @@ https://github.com/miniJs/miniCount/issues
 
 [MiniBoilerplate](http://miniboilerplate.com/) is used to create and maintain the plugin. Follow the instructions on the [website](http://miniboilerplate.com/) if you want to contribute or apply your own changes.
 
-### Using Guard Jasmine
-
-Guard automatically tests your Jasmine specs when files are modified which will significantly increase your productivity.
-
-- intall [phantomjs](http://phantomjs.org/) or just run `brew install phantomjs`
-- run `guard` from the plugin directory
-
 ## Developer
 
 Developed by <a href="mailto:matthieu.aussaguel@gmail.com">Matthieu Aussaguel</a>, <a href="http://mynameismatthieu.com">mynameismatthieu.com</a>
