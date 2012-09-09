@@ -16,14 +16,9 @@ If you find a bug, please raise it the issue here on Github!
 
 https://github.com/miniJs/miniCount/issues
 
-## Tests with Jasmine
+## Update instructions
 
-The boilerplate also encourages you to write tests for your plugin with [Jasmine](http://pivotal.github.com/jasmine/).
-
-To be able to run the test suite, you'll need to install the Jasmine gem. If you have bundler installed just follow these instructions:
-
-- run `bundle install`
-- run `rake jasmine` and go to 'http://localhost:8888/'
+[MiniBoilerplate](http://miniboilerplate.com/) is used to create and maintain the plugin. Follow the instructions on the [website](http://miniboilerplate.com/) if you want to contribute or apply your own changes.
 
 ### Using Guard Jasmine
 
