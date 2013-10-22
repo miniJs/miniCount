@@ -21,7 +21,7 @@ jQuery(function() {
     state = '';
     patterns = {
       character: /./g,
-      word: /\s|$/g,
+      word: /\s+|$/g,
       sentence: /(\S.+?[.!?])(?=\s+|$)/g
     };
     this.settings = {};
